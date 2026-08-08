@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M60 0H0V60" fill="none" stroke="#fff" stroke-opacity=".06"/>
+    </pattern>
+    <radialGradient id="orb" cx="50%" cy="50%" r="50%">
+      <stop stop-color="#53e7d2" stop-opacity=".17"/>
+      <stop offset="1" stop-color="#53e7d2" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="#0b1412"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="1000" cy="100" r="370" fill="url(#orb)"/>
+  <circle cx="1080" cy="90" r="260" fill="none" stroke="#fff" stroke-opacity=".09"/>
+  <circle cx="1080" cy="90" r="180" fill="none" stroke="#fff" stroke-opacity=".07"/>
+  <rect x="78" y="68" width="72" height="72" rx="19" fill="#172b26" stroke="#fff" stroke-opacity=".18"/>
+  <path d="M101 85c-5 0-8 3-8 8v7c0 4-2 6-5 7 3 1 5 3 5 7v7c0 5 3 8 8 8M127 85c5 0 8 3 8 8v7c0 4 2 6 5 7-3 1-5 3-5 7v7c0 5-3 8-8 8" fill="none" stroke="#ff795c" stroke-width="4" stroke-linecap="round"/>
+  <path d="M102 111h8l4-15 6 23 4-11h7" fill="none" stroke="#c8ff63" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+  <text x="170" y="116" fill="#fffdf7" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="800" letter-spacing="-1">Java<tspan fill="#c8ff63">Spec</tspan></text>
+  <text x="78" y="245" fill="#fffdf7" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="900" letter-spacing="-5">BEHAVIOR BEFORE</text>
+  <text x="78" y="325" fill="#c8ff63" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="900" letter-spacing="-5">IMPLEMENTATION.</text>
+  <text x="82" y="383" fill="#9eaca7" font-family="Courier New, monospace" font-size="21">SPEC-FIRST BDD / JAVA 8-COMPATIBLE / ZERO-DEPENDENCY CORE</text>
+  <path d="M82 460H275" stroke="#ff795c" stroke-width="3"/>
+  <path d="M275 460H469" stroke="#ff604f" stroke-width="3"/>
+  <path d="M469 460H663" stroke="#53e7d2" stroke-width="3"/>
+  <path d="M663 460H857" stroke="#c8ff63" stroke-width="3"/>
+  <path d="M857 460H1051" stroke="#ff795c" stroke-width="3"/>
+  <g font-family="Courier New, monospace" font-size="18" font-weight="700">
+    <text x="82" y="495" fill="#ff795c">01 SPEC</text>
+    <text x="275" y="495" fill="#ff806e">02 RED</text>
+    <text x="469" y="495" fill="#53e7d2">03 GENERATE</text>
+    <text x="663" y="495" fill="#c8ff63">04 GREEN</text>
+    <text x="857" y="495" fill="#ff795c">05 REFACTOR</text>
+  </g>
+  <rect x="82" y="548" width="305" height="38" rx="19" fill="#c8ff63"/>
+  <circle cx="103" cy="567" r="5" fill="#0b1412"/>
+  <text x="118" y="573" fill="#0b1412" font-family="Courier New, monospace" font-size="16" font-weight="700">1.0.0-RC5 / MAVEN CENTRAL</text>
+  <text x="1050" y="574" fill="#70807a" text-anchor="end" font-family="Courier New, monospace" font-size="16">jvmspec.github.io</text>
+</svg>

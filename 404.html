@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found — JavaSpec</title>
+  <meta name="description" content="The requested JavaSpec page could not be found. Return to the project home to continue.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0b1412">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <style>
+    .not-found { min-height: 100svh; display: grid; place-items: center; padding: 3rem 1.5rem; background: radial-gradient(circle at 70% 25%, rgba(83,231,210,.1), transparent 25rem), #0b1412; }
+    .not-found-card { width: min(100%, 780px); text-align: center; }
+    .not-found-code { display: inline-grid; width: 9rem; height: 9rem; margin-bottom: 2rem; place-items: center; border: 1px solid rgba(200,255,99,.3); border-radius: 50%; box-shadow: 0 0 0 2rem rgba(200,255,99,.025); color: #c8ff63; font: 800 2.2rem var(--font-mono); }
+    .not-found .kicker { margin-bottom: 1rem; }
+    .not-found h1 { margin-bottom: 1.5rem; color: #fffdf7; font: 900 clamp(3.2rem, 11vw, 7rem)/.88 var(--font-display); letter-spacing: -.07em; text-transform: uppercase; }
+    .not-found p { max-width: 34rem; margin: 0 auto 2rem; color: #9aa8a3; }
+    .not-found-signal { display: flex; width: min(100%, 32rem); gap: .4rem; margin: 2.5rem auto; }
+    .not-found-signal i { height: 2px; flex: 1; background: #31403b; }
+    .not-found-signal i:first-child { background: #ff604f; }
+    .not-found-signal i:nth-child(2) { background: #ff795c; }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+</head>
+<body>
+  <main class="not-found">
+    <div class="not-found-card">
+      <a class="brand" href="./" aria-label="JavaSpec home"><img src="assets/img/logo-mark.svg" width="42" height="42" alt=""><span class="brand-word">Java<span>Spec</span></span></a>
+      <div class="not-found-signal" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <span class="not-found-code" aria-hidden="true">404</span>
+      <p class="kicker">Unresolved location</p>
+      <h1>Page not found.</h1>
+      <p>This path does not describe a page we can run. Return to the project signal and choose the next known behavior.</p>
+      <a class="button button-primary" href="./">Return to JavaSpec <span aria-hidden="true">→</span></a>
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">JavaSpec mark</title>
+  <desc id="desc">A specification signal inside two code braces</desc>
+  <defs>
+    <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#172b26"/>
+      <stop offset="1" stop-color="#0b1412"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="1" y="1" width="62" height="62" rx="17" fill="url(#surface)" stroke="#ffffff" stroke-opacity=".16"/>
+  <path d="M22 15c-4 0-6 2-6 6v6c0 3-1.5 4.5-4 5 2.5.5 4 2 4 5v6c0 4 2 6 6 6" fill="none" stroke="#ff795c" stroke-width="3" stroke-linecap="round"/>
+  <path d="M42 15c4 0 6 2 6 6v6c0 3 1.5 4.5 4 5-2.5.5-4 2-4 5v6c0 4-2 6-6 6" fill="none" stroke="#53e7d2" stroke-width="3" stroke-linecap="round"/>
+  <path d="M23 36h5l3-10 4 16 3-8h4" fill="none" stroke="#c8ff63" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+  <circle cx="42" cy="34" r="2.2" fill="#c8ff63"/>
+</svg>
