@@ -81,6 +81,8 @@ try {
     await desktop.locator(`#${section}`).scrollIntoViewIfNeeded();
     await desktop.waitForTimeout(80);
   }
+  await desktop.locator(".native-preview-band").scrollIntoViewIfNeeded();
+  check(await desktop.getByRole("heading", { level: 3, name: /Link the project/i }).isVisible(), "native preview heading is not visible");
   await desktop.locator(".closing").scrollIntoViewIfNeeded();
   await desktop.waitForTimeout(850);
   await desktop.evaluate(() => {
@@ -123,6 +125,7 @@ try {
   await noScript.goto(`${baseUrl}/`, { waitUntil: "networkidle" });
   check(await noScript.getByRole("heading", { level: 1, name: /Behavior before implementation/i }).isVisible(), "no-script h1 is not visible");
   check(await noScript.locator("#maven-snippet").isVisible(), "no-script Maven onboarding is not visible");
+  check((await noScript.locator("body").innerText()).includes("javaspec:native-prepare"), "no-script native preview is unavailable");
   check(await noScript.locator("#site-nav").isVisible(), "no-script mobile navigation is not available");
   check(await noScript.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), "no-script mobile page has horizontal overflow");
   await noScriptContext.close();

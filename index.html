@@ -353,6 +353,33 @@
             <p>Concrete doubles and explicit instrumentation scopes.</p>
           </article>
         </div>
+
+        <article class="native-preview-band reveal" aria-labelledby="native-preview-title">
+          <div class="native-preview-mark" aria-hidden="true">
+            <span>N</span>
+            <i></i>
+            <small>ELF</small>
+          </div>
+          <div class="native-preview-copy">
+            <div class="native-preview-topline">
+              <span>DEVELOP / NATIVE-001</span>
+              <span class="scope-badge-native">SOURCE PREVIEW</span>
+            </div>
+            <h3 id="native-preview-title">Link the project.<br>Leave the JVM behind.</h3>
+            <p><code>javaspec:native-prepare</code> now generates a closed-world launcher and reachability metadata. GraalVM Native Image 25 links JavaSpec, production classes, and compiled specs into a project-specific executable that runs without starting a JVM process.</p>
+            <p class="native-release-truth"><strong>Not included in published RC5.</strong> The first Linux x86-64 preview is source-current on <code>develop</code>; dynamic classpaths, runtime generation, reports, doubles, and broader platforms remain separate evidence slices.</p>
+            <div class="native-preview-actions">
+              <a class="arrow-link arrow-link-light" href="https://github.com/mgiustiniani/javaspec/blob/develop/docs/native-image.md">Read the native guide <span aria-hidden="true">↗</span></a>
+              <a class="native-evidence-link" href="https://github.com/mgiustiniani/javaspec/actions/runs/31283281632"><span aria-hidden="true">●</span> GraalVM CI green</a>
+            </div>
+          </div>
+          <dl class="native-preview-facts">
+            <div><dt>BUILD</dt><dd>GraalVM 25</dd></div>
+            <div><dt>OUTPUT</dt><dd>Project binary</dd></div>
+            <div><dt>RUNTIME</dt><dd>No JVM process</dd></div>
+            <div><dt>STATUS</dt><dd>Develop preview</dd></div>
+          </dl>
+        </article>
       </div>
     </section>
 
@@ -399,6 +426,11 @@
             <span class="ledger-state"><i aria-hidden="true">…</i> Approval pending</span>
             <div><strong>Gradle Plugin Portal / io.github.jvmspec</strong><p>Submission succeeded; first-publication marker availability is still an external gate.</p></div>
             <span class="ledger-code">MARKER 404</span>
+          </div>
+          <div class="ledger-row ledger-preview">
+            <span class="ledger-state"><i aria-hidden="true">N</i> DEVELOP</span>
+            <div><strong>Project-specific Native Image preview</strong><p>GraalVM 25 Linux x86-64 evidence is green; this source capability is not part of RC5.</p></div>
+            <span class="ledger-code">SOURCE ONLY</span>
           </div>
           <div class="ledger-row ledger-next">
             <span class="ledger-state"><i aria-hidden="true">→</i> NEXT GATE</span>

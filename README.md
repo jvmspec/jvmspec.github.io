@@ -38,7 +38,9 @@ Product and release claims are derived from the current JavaSpec repository and 
 
 - `1.0.0-RC5` Maven artifacts are public under `io.github.jvmspec`;
 - the Gradle plugin submission succeeded, but its first-publication Portal marker remains approval pending;
-- stable `1.0.0` is not presented as released.
+- stable `1.0.0` is not presented as released;
+- the project-specific Native Image capability is labeled as a post-RC5 `develop` preview, not a
+  published RC5 feature.
 
 Do not infer public availability from a successful submission. Update the release ledger only after the corresponding public coordinate has been verified.
 

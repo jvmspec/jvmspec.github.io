@@ -30,6 +30,13 @@ Feature: Present JavaSpec on its GitHub Pages home
     And CLI, Maven, Gradle, JUnit Platform, ByteBuddy doubles, and bytecode-agent integrations are represented
     And no unsupported adoption, performance, or stable-release claim is shown
 
+  Scenario: Distinguish the post-RC5 native executable preview
+    When a visitor reviews development capabilities
+    Then the site explains that Maven links project classes into a project-specific executable
+    And it identifies GraalVM Native Image 25 as a build-time requirement
+    And it does not attribute native-prepare to published RC5
+    And it links to the source-current native guide
+
   Scenario: Reach documentation in a preferred language
     When a visitor opens the documentation section
     Then English, Italian, Spanish, German, French, and Simplified Chinese manuals are linked

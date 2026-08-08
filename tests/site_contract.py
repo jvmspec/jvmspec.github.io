@@ -101,6 +101,9 @@ if index:
         "io.github.jvmspec",
         "javaspec-bytecode-agent",
         "approval pending",
+        "javaspec:native-prepare",
+        "graalvm native image 25",
+        "not included in published rc5",
     ):
         require(phrase in lower, f"home page is missing truthful product token: {phrase}")
     for forbidden in (
@@ -111,6 +114,7 @@ if index:
         "fonts.googleapis.com",
     ):
         require(forbidden not in lower, f"home page contains forbidden claim/dependency: {forbidden}")
+    require("docs/native-image.md" in index.text, "source-current native guide link is missing")
     for language in ("English", "Italiano", "Español", "Deutsch", "Français", "简体中文"):
         require(language in index.text, f"documentation link is missing language: {language}")
     descriptions = [m.get("content", "") for m in index.meta if m.get("name") == "description"]

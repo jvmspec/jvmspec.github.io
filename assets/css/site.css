@@ -1650,6 +1650,174 @@ p {
   line-height: 1.55;
 }
 
+.native-preview-band {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr) 14rem;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: center;
+  margin-top: 1rem;
+  padding: clamp(1.5rem, 4vw, 2.8rem);
+  overflow: hidden;
+  border: 1px solid rgba(200, 255, 99, 0.3);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(110deg, rgba(200, 255, 99, 0.09), transparent 43%),
+    radial-gradient(circle at 90% 20%, rgba(83, 231, 210, 0.1), transparent 15rem),
+    rgba(255, 255, 255, 0.025);
+}
+
+.native-preview-band::after {
+  position: absolute;
+  right: -4rem;
+  bottom: -8rem;
+  width: 18rem;
+  height: 18rem;
+  border: 1px solid rgba(83, 231, 210, 0.13);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.native-preview-mark {
+  position: relative;
+  display: grid;
+  width: 6.5rem;
+  height: 6.5rem;
+  place-content: center;
+  border: 1px solid rgba(200, 255, 99, 0.35);
+  border-radius: 50%;
+  background: #0a1210;
+  box-shadow: 0 0 0 0.8rem rgba(200, 255, 99, 0.025), 0 0 40px rgba(83, 231, 210, 0.08);
+  text-align: center;
+}
+
+.native-preview-mark span {
+  color: var(--signal);
+  font-family: var(--font-mono);
+  font-size: 1.45rem;
+  font-weight: 800;
+}
+
+.native-preview-mark i {
+  display: block;
+  width: 2.2rem;
+  height: 2px;
+  margin: 0.35rem auto;
+  background: linear-gradient(90deg, var(--coral), var(--aqua));
+}
+
+.native-preview-mark small {
+  color: #71817b;
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.12em;
+}
+
+.native-preview-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: var(--aqua);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.scope-badge-native {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid rgba(200, 255, 99, 0.26);
+  border-radius: 999px;
+  color: var(--signal);
+}
+
+.native-preview-copy h3 {
+  margin-bottom: 1rem;
+  color: var(--white);
+  font-size: clamp(1.75rem, 3vw, 2.8rem);
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.native-preview-copy > p {
+  max-width: 50rem;
+  margin-bottom: 0.8rem;
+  color: #a7b4af;
+  font-size: 0.78rem;
+}
+
+.native-preview-copy code {
+  color: var(--aqua);
+}
+
+.native-preview-copy .native-release-truth {
+  color: #7f8e88;
+  font-size: 0.7rem;
+}
+
+.native-release-truth strong {
+  color: var(--coral);
+}
+
+.native-preview-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 1.3rem;
+}
+
+.native-evidence-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #8e9d97;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+}
+
+.native-evidence-link span {
+  color: var(--signal);
+  font-size: 0.48rem;
+}
+
+.native-preview-facts {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  border-top: 1px solid var(--line-dark);
+}
+
+.native-preview-facts div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--line-dark);
+}
+
+.native-preview-facts dt,
+.native-preview-facts dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.53rem;
+}
+
+.native-preview-facts dt {
+  color: #5f706a;
+}
+
+.native-preview-facts dd {
+  color: #b9c5c0;
+  text-align: right;
+}
+
 /* Docs */
 .docs {
   overflow: hidden;
@@ -1857,6 +2025,10 @@ p {
 
 .ledger-pending .ledger-state {
   color: #f0c86c;
+}
+
+.ledger-preview .ledger-state {
+  color: var(--coral);
 }
 
 .ledger-next .ledger-state {
@@ -2125,6 +2297,17 @@ p {
   .docs-layout {
     gap: 3.5rem;
   }
+
+  .native-preview-band {
+    grid-template-columns: 7rem 1fr;
+  }
+
+  .native-preview-facts {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 2rem;
+  }
 }
 
 @media (max-width: 720px) {
@@ -2351,6 +2534,25 @@ p {
 
   .ecosystem-node {
     min-height: auto;
+  }
+
+  .native-preview-band {
+    grid-template-columns: 1fr;
+  }
+
+  .native-preview-mark {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+
+  .native-preview-facts {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .native-preview-topline {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .node-heading {
