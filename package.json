@@ -1,0 +1,16 @@
+{
+  "name": "jvmspec.github.io",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static presentation site for JavaSpec",
+  "scripts": {
+    "validate": "bash scripts/validate-site.sh",
+    "test:browser": "node tests/browser-check.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.61.1"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
