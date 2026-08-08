@@ -30,6 +30,8 @@ npm run validate
 
 Screenshots are written to the ignored `test-results/` directory. The executable Story BDD source is [`features/presentation-site.feature`](features/presentation-site.feature).
 
+Every `main` push deploys a minimal static Pages artifact only after the structural and responsive-browser job passes. Pull requests validate without deploying.
+
 ## Content policy
 
 Product and release claims are derived from the current JavaSpec repository and verified release evidence:
