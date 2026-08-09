@@ -45,6 +45,27 @@ const watchPage = (page, label) => {
   });
 };
 
+const findHeadingCollisions = (page, pairs) => page.evaluate((selectors) => {
+  const textBounds = (selector) => {
+    const range = document.createRange();
+    range.selectNodeContents(document.querySelector(selector));
+    const boxes = [...range.getClientRects()];
+    return {
+      right: Math.max(...boxes.map((box) => box.right)),
+      top: Math.min(...boxes.map((box) => box.top)),
+      bottom: Math.max(...boxes.map((box) => box.bottom)),
+    };
+  };
+  return Object.fromEntries(Object.entries(selectors).map(([name, [headingSelector, panelSelector]]) => {
+    const heading = textBounds(headingSelector);
+    const panel = document.querySelector(panelSelector).getBoundingClientRect();
+    const collides = heading.top < panel.bottom
+      && heading.bottom > panel.top
+      && heading.right > panel.left - 8;
+    return [name, collides];
+  }));
+}, pairs);
+
 let browser;
 try {
   await waitForServer();
@@ -64,6 +85,12 @@ try {
   check(await desktop.getByRole("heading", { level: 1, name: /Behavior before implementation/i }).isVisible(), "desktop h1 is not visible");
   check(await desktop.getByRole("link", { name: /Start with RC5/i }).isVisible(), "primary onboarding action is not visible");
   check((await desktop.locator("body").innerText()).includes("1.0.0-RC5"), "RC5 release token is not rendered");
+  const desktopHeadingCollisions = await findHeadingCollisions(desktop, {
+    install: [".install h2", ".install-terminal"],
+    release: [".release h2", ".release-ledger"],
+  });
+  check(!desktopHeadingCollisions.install, "desktop install heading collides with the terminal");
+  check(!desktopHeadingCollisions.release, "desktop release heading collides with the ledger");
 
   await desktop.keyboard.press("Tab");
   check(await desktop.evaluate(() => document.activeElement?.classList.contains("skip-link")), "skip link is not the first keyboard focus target");
@@ -83,6 +110,11 @@ try {
   }
   await desktop.locator(".native-preview-band").scrollIntoViewIfNeeded();
   check(await desktop.getByRole("heading", { level: 3, name: /Link the project/i }).isVisible(), "native preview heading is not visible");
+  const nativeActionCenters = await desktop.locator(".native-preview-actions a").evaluateAll((links) => links.map((link) => {
+    const box = link.getBoundingClientRect();
+    return box.top + box.height / 2;
+  }));
+  check(Math.abs(nativeActionCenters[0] - nativeActionCenters[1]) <= 1, "desktop native-preview actions are vertically misaligned");
   await desktop.locator(".closing").scrollIntoViewIfNeeded();
   await desktop.waitForTimeout(850);
   await desktop.evaluate(() => {
@@ -116,8 +148,77 @@ try {
   await mobile.screenshot({ path: new URL("../test-results/site-mobile.png", import.meta.url).pathname, fullPage: true });
   await mobileContext.close();
 
+  const narrowContext = await browser.newContext({
+    viewport: { width: 320, height: 720 },
+    deviceScaleFactor: 1,
+    reducedMotion: "reduce",
+  });
+  const narrow = await narrowContext.newPage();
+  watchPage(narrow, "narrow-mobile");
+  await narrow.goto(`${baseUrl}/`, { waitUntil: "networkidle" });
+  const narrowBounds = await narrow.evaluate(() => {
+    const bounds = (selector) => {
+      const box = document.querySelector(selector).getBoundingClientRect();
+      return { left: box.left, right: box.right, top: box.top, bottom: box.bottom };
+    };
+    const shell = bounds(".hero .shell");
+    const implementation = bounds(".hero h1 em");
+    const consoleBox = bounds(".signal-console");
+    const ledger = bounds(".release-ledger");
+    const releaseShell = bounds(".release .shell");
+    const code = document.querySelector(".console-code");
+    const closingTitle = document.querySelector(".closing h2");
+    return {
+      shell,
+      implementation,
+      consoleBox,
+      ledger,
+      releaseShell,
+      codeOverflow: code.scrollWidth - code.clientWidth,
+      closingOverflow: closingTitle.scrollWidth - closingTitle.clientWidth,
+    };
+  });
+  check(narrowBounds.implementation.right <= narrowBounds.shell.right + 1, "320px hero title is clipped");
+  check(narrowBounds.consoleBox.right <= narrowBounds.shell.right + 1, "320px signal console exceeds its shell");
+  check(narrowBounds.codeOverflow <= 1, "320px signal-console code is horizontally clipped");
+  check(narrowBounds.ledger.right <= narrowBounds.releaseShell.right + 1, "320px release ledger exceeds its shell");
+  check(narrowBounds.closingOverflow <= 1, "320px closing title is clipped");
+  await narrowContext.close();
+
+  const compactDesktopContext = await browser.newContext({
+    viewport: { width: 901, height: 900 },
+    deviceScaleFactor: 1,
+    reducedMotion: "reduce",
+  });
+  const compactDesktop = await compactDesktopContext.newPage();
+  watchPage(compactDesktop, "compact-desktop");
+  await compactDesktop.goto(`${baseUrl}/`, { waitUntil: "networkidle" });
+  const compactCollisions = await findHeadingCollisions(compactDesktop, {
+    hero: [".hero h1 em", ".signal-console"],
+  });
+  check(!compactCollisions.hero, "901px hero title collides with the signal console");
+  await compactDesktopContext.close();
+
+  const wideContext = await browser.newContext({
+    viewport: { width: 1920, height: 1000 },
+    deviceScaleFactor: 1,
+    reducedMotion: "reduce",
+  });
+  const wide = await wideContext.newPage();
+  watchPage(wide, "wide-desktop");
+  await wide.goto(`${baseUrl}/`, { waitUntil: "networkidle" });
+  const wideHeadingCollisions = await findHeadingCollisions(wide, {
+    hero: [".hero h1", ".signal-console"],
+    install: [".install h2", ".install-terminal"],
+    release: [".release h2", ".release-ledger"],
+  });
+  check(!wideHeadingCollisions.hero, "wide-desktop hero title collides with the signal console");
+  check(!wideHeadingCollisions.install, "wide-desktop install heading collides with the terminal");
+  check(!wideHeadingCollisions.release, "wide-desktop release heading collides with the ledger");
+  await wideContext.close();
+
   const noScriptContext = await browser.newContext({
-    viewport: { width: 390, height: 844 },
+    viewport: { width: 320, height: 720 },
     javaScriptEnabled: false,
   });
   const noScript = await noScriptContext.newPage();
@@ -128,6 +229,20 @@ try {
   check((await noScript.locator("body").innerText()).includes("javaspec:native-prepare"), "no-script native preview is unavailable");
   check(await noScript.locator("#site-nav").isVisible(), "no-script mobile navigation is not available");
   check(await noScript.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), "no-script mobile page has horizontal overflow");
+  const noScriptLayout = await noScript.evaluate(() => {
+    const header = document.querySelector(".site-header").getBoundingClientRect();
+    const brand = document.querySelector(".site-header .brand").getBoundingClientRect();
+    const navigationBox = document.querySelector("#site-nav").getBoundingClientRect();
+    const releaseChip = document.querySelector(".release-chip").getBoundingClientRect();
+    return {
+      headerBottom: header.bottom,
+      brandBottom: brand.bottom,
+      navigationTop: navigationBox.top,
+      releaseChipTop: releaseChip.top,
+    };
+  });
+  check(noScriptLayout.brandBottom <= noScriptLayout.navigationTop + 1, "no-script mobile navigation is painted above the brand");
+  check(noScriptLayout.headerBottom <= noScriptLayout.releaseChipTop, "no-script mobile header overlaps hero content");
   await noScriptContext.close();
 
   const notFoundContext = await browser.newContext({ viewport: { width: 1024, height: 768 } });
@@ -152,4 +267,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log("BROWSER CHECK: PASS (1440×1000 and 390×844)");
+console.log("BROWSER CHECK: PASS (1920×1000, 1440×1000, 901×900, 390×844, and 320×720)");

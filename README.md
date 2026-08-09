@@ -20,7 +20,8 @@ The dependency-free structural contract can run anywhere Python 3 is available:
 python3 tests/site_contract.py
 ```
 
-For responsive Chromium validation and screenshots:
+For responsive Chromium validation across 320, 390, 901, 1440, and 1920 pixel layouts, including
+no-JavaScript mobile rendering and heading/panel collision guards:
 
 ```bash
 npm ci

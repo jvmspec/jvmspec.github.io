@@ -438,6 +438,17 @@ p {
   gap: clamp(3rem, 7vw, 7rem);
 }
 
+.hero-copy,
+.signal-console,
+.install-copy,
+.install-terminal,
+.docs-copy,
+.language-grid,
+.release-copy,
+.release-ledger {
+  min-width: 0;
+}
+
 .release-chip {
   display: inline-flex;
   align-items: center;
@@ -472,7 +483,7 @@ p {
   margin-bottom: 1.7rem;
   color: var(--white);
   font-family: var(--font-display);
-  font-size: clamp(4rem, 6.25vw, 6.3rem);
+  font-size: clamp(4rem, 6.25vw, 5.625rem);
   font-weight: 900;
   letter-spacing: -0.075em;
   line-height: 0.86;
@@ -1772,6 +1783,10 @@ p {
   margin-top: 1.3rem;
 }
 
+.native-preview-actions .arrow-link {
+  margin-top: 0;
+}
+
 .native-evidence-link {
   display: inline-flex;
   align-items: center;
@@ -2227,6 +2242,22 @@ p {
   }
 }
 
+@media (min-width: 901px) {
+  .install h2 {
+    font-size: clamp(3rem, 5.6vw, 5.25rem);
+  }
+
+  .release h2 {
+    font-size: clamp(3rem, 5.2vw, 4.5rem);
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1120px) {
+  .hero h1 {
+    font-size: clamp(3.35rem, 5.75vw, 4rem);
+  }
+}
+
 @media (max-width: 900px) {
   .shell {
     width: min(calc(100% - 2.2rem), var(--shell));
@@ -2248,7 +2279,7 @@ p {
   }
 
   .hero h1 {
-    font-size: clamp(4.2rem, 12vw, 7rem);
+    font-size: clamp(4rem, 11.25vw, 6.15rem);
   }
 
   .signal-console {
@@ -2403,7 +2434,7 @@ p {
   }
 
   .hero h1 {
-    font-size: clamp(3.6rem, 16vw, 5.4rem);
+    font-size: clamp(2.25rem, 11.25vw, 5.1rem);
   }
 
   .hero-lede {
@@ -2584,6 +2615,36 @@ p {
   }
 }
 
+@media (max-width: 600px) {
+  html:not(.js) .site-header {
+    position: relative;
+    background: var(--ink);
+  }
+
+  html:not(.js) .header-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding-block: 0.8rem;
+  }
+
+  html:not(.js) .site-nav {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.1rem 1rem;
+    justify-content: stretch;
+  }
+
+  html:not(.js) .site-nav a {
+    padding-block: 0.35rem;
+  }
+
+  html:not(.js) .hero {
+    padding-top: 4.5rem;
+  }
+}
+
 @media (max-width: 480px) {
   .shell {
     width: min(calc(100% - 1.5rem), var(--shell));
@@ -2597,12 +2658,25 @@ p {
     font-size: 0.58rem;
   }
 
-  .hero h1 {
-    font-size: clamp(3.25rem, 16vw, 4.5rem);
+  .section-heading h2,
+  .install h2,
+  .docs h2,
+  .release h2,
+  .closing h2 {
+    font-size: clamp(2.25rem, 12vw, 3rem);
+  }
+
+  .console-code {
+    font-size: 0.61rem;
   }
 
   .console-code .line {
-    min-width: 29rem;
+    min-width: 0;
+    padding-inline: 0.75rem;
+  }
+
+  .console-code .line i {
+    width: 1.6rem;
   }
 
   .install-meta {

@@ -47,5 +47,7 @@ Feature: Present JavaSpec on its GitHub Pages home
     Then semantic landmarks and a skip link are available
     And keyboard focus is visible
     And reduced-motion preferences are respected
-    And there is no horizontal page overflow
+    And there is no horizontal page overflow or clipped title at 320, 390, 901, 1440, or 1920 pixels
+    And adjacent headings and visual panels do not collide
     And critical content remains available without JavaScript
+    And the no-JavaScript mobile navigation does not overlap the hero
